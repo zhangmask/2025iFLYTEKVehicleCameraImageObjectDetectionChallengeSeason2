@@ -1,0 +1,100 @@
+# 车载摄像机目标检测配置文件
+
+# 数据配置
+data:
+  train_image_dir: "train/train"
+  train_label_dir: "train_label/train_label"
+  test_image_dir: "test/test"
+  output_dir: "outputs"
+  yolo_data_dir: "outputs/yolo_data"
+  train_split: 0.8
+  val_split: 0.2
+
+# 类别配置
+classes:
+  names: ["car", "truck", "bike", "human"]
+  num_classes: 4
+  class_mapping:
+    car: 0
+    truck: 1
+    bike: 2
+    human: 3
+
+# 模型配置
+model:
+  name: yolov8l  # 使用YOLOv8 large模型
+  size: yolov8l
+  pretrained: true
+  num_classes: 4
+  input_size: 640
+  confidence_threshold: 0.25
+  iou_threshold: 0.45
+
+# 训练配置
+train:
+  epochs: 300
+  batch_size: 4
+  learning_rate: 0.001
+  patience: 100
+  save_period: 20
+  device: "cuda"  # cuda, cpu, auto
+  workers: 4
+  optimizer: "AdamW"  # SGD, Adam, AdamW
+  weight_decay: 0.0005
+  momentum: 0.937
+  warmup_epochs: 3
+  warmup_momentum: 0.8
+  warmup_bias_lr: 0.1
+
+# 数据增强配置
+augmentation:
+  hsv_h: 0.02
+  hsv_s: 0.8
+  hsv_v: 0.5
+  degrees: 10.0
+  translate: 0.2
+  scale: 0.8
+  shear: 2.0
+  perspective: 0.0001
+  flipud: 0.0
+  fliplr: 0.5
+  mosaic: 1.0
+  mixup: 0.1
+
+# 推理配置
+inference:
+  batch_size: 32
+  device: "cuda"
+  confidence_threshold: 0.25
+  iou_threshold: 0.45
+  save_txt: true
+  save_conf: true
+  save_crop: false
+  show_labels: true
+  show_conf: true
+  max_det: 1000
+
+# 评估配置
+evaluation:
+  iou_threshold: 0.5
+  conf_threshold: 0.001
+  max_det: 300
+  save_plots: true
+  save_json: true
+
+# 路径配置
+paths:
+  models: "models"
+  logs: "logs"
+  outputs: "outputs"
+  outputs_dir: "outputs"
+  yolo_dataset: "outputs/yolo_data"
+  submission_dir: "outputs/submission"
+  plots_dir: "outputs/plots"
+  weights_dir: "models/weights"
+
+# 日志配置
+logging:
+  level: "INFO"
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  file: "logs/detection.log"
