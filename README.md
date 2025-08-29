@@ -1,0 +1,2 @@
+# 2025iFLYTEKVehicleCameraImageObjectDetectionChallengeSeason2
+2025讯飞车载摄像机图像的目标检测挑战赛 赛季2
